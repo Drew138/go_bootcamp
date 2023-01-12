@@ -1,21 +1,22 @@
 package main
 
 import (
-	"dia_2/cmd/handlers"
+	"dia_2/cmd/router"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-func registerHandlers(r *gin.Engine) {
-	r.GET("/ping", handlers.Ping)
-	r.GET("/product/:id", handlers.RetrieveProduct)
-	r.GET("/product", handlers.GetProducts)
-	r.GET("/product/search", handlers.FilterProductsByPrice)
-	r.POST("/product", handlers.CreateProduct)
-}
-
 func main() {
-	r := gin.Default()
-	registerHandlers(r)
-	r.Run()
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
+	e := gin.Default()
+	r := router.NewRouter(e)
+	r.SetRoutes()
+	if err := e.Run(); err != nil {
+		log.Fatal(err)
+	}
 }

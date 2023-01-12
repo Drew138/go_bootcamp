@@ -8,7 +8,11 @@ type Response struct {
 }
 
 var (
-	ErrNotFound = errors.New("not found")
+	ErrNotFound            = errors.New("not found")
+	ErrAlreadyExist        = errors.New("already exists")
+	ErrInternalServerError = errors.New("internal server error")
+	ErrInvalidId           = errors.New("invalid id")
+	ErrUnauthorized        = errors.New("unauthorized")
 )
 
 func Ok(message string, data interface{}) *Response {
